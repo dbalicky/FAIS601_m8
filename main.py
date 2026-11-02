@@ -74,9 +74,10 @@ async def add_route(operation: OperationRequest):
     """
     try:
         result = add(operation.a, operation.b)
+        logger.info("Addition successful: %s + %s = %s", operation.a, operation.b, result)
         return OperationResponse(result=result)
     except Exception as e:
-        logger.error(f"Add Operation Error: {str(e)}")
+        logger.error("Add Operation Error: %s", e)
         raise HTTPException(status_code=400, detail=str(e))
 
 @app.post("/subtract", response_model=OperationResponse, responses={400: {"model": ErrorResponse}})
@@ -86,9 +87,10 @@ async def subtract_route(operation: OperationRequest):
     """
     try:
         result = subtract(operation.a, operation.b)
+        logger.info("Subtraction successful: %s - %s = %s", operation.a, operation.b, result)
         return OperationResponse(result=result)
     except Exception as e:
-        logger.error(f"Subtract Operation Error: {str(e)}")
+        logger.error("Subtract Operation Error: %s", e)
         raise HTTPException(status_code=400, detail=str(e))
 
 @app.post("/multiply", response_model=OperationResponse, responses={400: {"model": ErrorResponse}})
@@ -98,9 +100,10 @@ async def multiply_route(operation: OperationRequest):
     """
     try:
         result = multiply(operation.a, operation.b)
+        logger.info("Multiplication successful: %s * %s = %s", operation.a, operation.b, result)
         return OperationResponse(result=result)
     except Exception as e:
-        logger.error(f"Multiply Operation Error: {str(e)}")
+        logger.error("Multiply Operation Error: %s", e)
         raise HTTPException(status_code=400, detail=str(e))
 
 @app.post("/divide", response_model=OperationResponse, responses={400: {"model": ErrorResponse}})
@@ -110,12 +113,13 @@ async def divide_route(operation: OperationRequest):
     """
     try:
         result = divide(operation.a, operation.b)
+        logger.info("Division successful: %s / %s = %s", operation.a, operation.b, result)
         return OperationResponse(result=result)
     except ValueError as e:
-        logger.error(f"Divide Operation Error: {str(e)}")
+        logger.error("Divide Operation Error: %s", e)
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        logger.error(f"Divide Operation Internal Error: {str(e)}")
+        logger.error("Divide Operation Internal Error: %s", e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 if __name__ == "__main__":
